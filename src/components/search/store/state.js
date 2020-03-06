@@ -1,3 +1,4 @@
 export default {
-    search: ''
+    search: '',
+    userData: {}
 }

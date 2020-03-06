@@ -26,10 +26,9 @@
         methods: {
             ...mapActions('search', ['ActionsSearch']),        
             submit() {
-                this.ActionsSearch(this.search).then(res => {
-                    console.log(res)
-                })
-            }
+                const teste = this.ActionsSearch(this.search)
+            },
+
         }
     }
 </script>
