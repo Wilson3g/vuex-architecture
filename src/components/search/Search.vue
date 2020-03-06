@@ -17,13 +17,16 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+
     export default {
         data: () => ({
             search: ''
         }),
         methods: {
+            ...mapActions('search', ['ActionsSearch']),        
             submit() {
-                console.log(this.search)
+                this.ActionsSearch(this.search)
             }
         }
     }
