@@ -25,10 +25,10 @@
         }),
         methods: {
             ...mapActions('search', ['ActionsSearch']),        
-            submit() {
-                const teste = this.ActionsSearch(this.search)
+            async submit() {
+                await this.ActionsSearch(this.search)
+                this.$router.push('/')
             },
-
         }
     }
 </script>
