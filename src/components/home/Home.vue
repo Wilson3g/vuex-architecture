@@ -1,30 +1,46 @@
 <template>
     <div>
-        <div class="text">
-            <h1>Wilson's repositories</h1>
+        <div class="text" v-if="results">
+            <h1> {{ results[0].owner.login }}´s repositories </h1>
         </div>
 
-        <div class="card">
+        <div class="card" v-for="data_repos in results">
             <div class="card-content">
-                <p class="title">
-                “There are two hard things in computer science: cache invalidation, naming things, and off-by-one errors.”
+                <h1 class="title">{{ data_repos.name }}</h1>
+
+                <p v-if="data_repos.description">
+                    Description: {{ data_repos.description }}
                 </p>
+                <p v-else="">
+                    Description: No description
+                </p>
+                
+                <p v-if="data_repos.open_issues_count">
+                    Description: {{ data_repos.open_issues_count }}
+                </p>
+                <p v-else="">
+                    Description: No issues
+                </p>
+                
                 <p class="subtitle">
-                Jeff Atwood
+                   Stars: {{ data_repos.stargazers_count }}
                 </p>
+
             </div>
+
             <footer class="card-footer">
                 <p class="card-footer-item">
                 <span>
-                    View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+                    Language:  {{data_repos.language}}
                 </span>
                 </p>
                 <p class="card-footer-item">
                 <span>
-                    Share on <a href="#">Facebook</a>
+                    Size {{ data_repos.size }}KB
                 </span>
                 </p>
             </footer>
+
         </div>
     </div>
 </template>
@@ -33,28 +49,22 @@
     import { mapActions } from 'vuex'
 
     export default {
+         props: ['results'],
         data: () => ({
             search: ''
         }),
         created() {
-            this.users()
+        
         },
         methods: {
             ...mapActions('home' ,['ActionsSetUser']),
-            showUser() {
-            //    return this.$store.state.home.users
-            console.log(this.store.state)
-            },
-            users() {
-                return this.ActionsSetUser()
-            }
         }
     }
 </script>
 
 <style scoped>
     .card{
-        margin: 100px 500px 100px 500px;
+        margin: 5% 15% 100px 15%;
     }
 
     .text{

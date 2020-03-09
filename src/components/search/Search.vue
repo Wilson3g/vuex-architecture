@@ -1,9 +1,13 @@
 <template>
     <div>
+        <div class="text">
+            Search Repositories on Github
+        </div>
+
        <form @submit="submit()">
             <div class="field">
                 <div class="control">
-                    <input class="input" v-model="search" placeholder="Search..." type="text">
+                    <input class="input" v-model="search" placeholder="Github's username..." type="text">
                 </div>
             </div>
 
@@ -13,21 +17,31 @@
                 </div>
             </div>
         </form> 
+
+        <div v-if="search">
+            <results :results="this.results" />
+        </div>
+
     </div>
 </template>
 
 <script>
     import { mapActions } from 'vuex'
+    import results from '@/components/home/Home'
 
     export default {
+        components: {
+            results
+        },
         data: () => ({
-            search: ''
+            search: '',
+            results: []
         }),
         methods: {
             ...mapActions('search', ['ActionsSearch']),        
             async submit() {
                 await this.ActionsSearch(this.search)
-                this.$router.push('/')
+                this.results = this.$store.state.search.search.body
             },
         }
     }
@@ -35,9 +49,14 @@
 
 <style scope="">
     form{
-        margin: 15%;
+        margin: 5% 15% 5% 15%;
     }
     .button{
         margin: 0 auto;
+    }
+    .text{
+        text-align: center;
+        font-size: 25px;
+        margin-top: 100px;
     }
 </style>
